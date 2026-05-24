@@ -26,7 +26,7 @@ const homeHref = lang === "ja" ? "/" : "/en/";
 <header class="site-header">
   <div class="container header-inner">
     <a href={homeHref} class="site-logo" aria-label={t.hero.name}>
-      <span class="logo-mark">SI</span>
+      <img class="logo-mark" src="/images/profile.jpg" alt={t.hero.name} width="32" height="32" />
       <span class="logo-name">{t.hero.name}</span>
     </a>
 
@@ -94,17 +94,12 @@ const homeHref = lang === "ja" ? "/" : "/en/";
     color: var(--color-accent);
   }
   .logo-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: 32px;
     height: 32px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--color-accent), #0891b2);
-    color: white;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-elev);
   }
   .logo-name {
     font-size: 0.95rem;
