@@ -3,7 +3,7 @@ import type { Content } from "./types";
 export const ja: Content = {
   meta: {
     title: "今井 柊平 | Shuhei Imai",
-    description: "今井柊平 (Shuhei Imai) の研究者ページ。研究関心、発表論文、経歴などを掲載しています。",
+    description: "今井柊平 (Shuhei Imai) の個人ページです。",
   },
   nav: {
     about: "About",

@@ -3,7 +3,7 @@ import type { Content } from "./types";
 export const en: Content = {
   meta: {
     title: "Shuhei Imai",
-    description: "Personal page of Shuhei Imai — research interests, publications, and background.",
+    description: "Personal page of Shuhei Imai.",
   },
   nav: {
     about: "About",
