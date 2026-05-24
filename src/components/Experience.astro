@@ -1,0 +1,15 @@
+---
+import type { Content } from "../i18n/types";
+import Timeline from "./Timeline.astro";
+interface Props {
+  t: Content;
+}
+const { t } = Astro.props;
+---
+
+<section id="experience">
+  <div class="container">
+    <h2 class="section-heading">{t.experience.heading}</h2>
+    <Timeline items={t.experience.items} />
+  </div>
+</section>

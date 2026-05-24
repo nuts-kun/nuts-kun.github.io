@@ -1,0 +1,56 @@
+---
+import type { Content } from "../i18n/types";
+interface Props {
+  t: Content;
+}
+const { t } = Astro.props;
+---
+
+<section id="research">
+  <div class="container">
+    <h2 class="section-heading">{t.research.heading}</h2>
+    <ul class="research-list">
+      {t.research.items.map((it) => (
+        <li class="research-item">
+          <div class="research-topic">{it.topic}</div>
+          <div class="research-detail">{it.detail}</div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .research-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .research-item {
+    padding: 12px 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-md);
+  }
+  .research-topic {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.98rem;
+    line-height: 1.4;
+    margin-bottom: 3px;
+  }
+  .research-detail {
+    color: var(--color-text-muted);
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  @media (max-width: 640px) {
+    .research-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

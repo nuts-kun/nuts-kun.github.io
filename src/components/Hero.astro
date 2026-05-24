@@ -1,0 +1,242 @@
+---
+import type { Content, Locale } from "../i18n/types";
+import IconMail from "./icons/IconMail.astro";
+import IconScholar from "./icons/IconScholar.astro";
+import IconX from "./icons/IconX.astro";
+interface Props {
+  lang: Locale;
+  t: Content;
+}
+const { lang, t } = Astro.props;
+
+const nicknameDisplay = t.hero.nickname
+  ? lang === "ja"
+    ? `（${t.hero.nickname}）`
+    : ` (${t.hero.nickname})`
+  : "";
+---
+
+<section id="about" class="hero">
+  <div class="container hero-inner">
+    <div class="hero-photo">
+      <img src="/images/profile.jpg" alt={t.hero.name} width="180" height="180" loading="eager" />
+    </div>
+    <div class="hero-text">
+      <h1 class="hero-name">
+        {t.hero.name}{nicknameDisplay && <span class="hero-nickname">{nicknameDisplay}</span>}
+      </h1>
+      <p class="hero-name-sub">{t.hero.nameSub}</p>
+      <ul class="hero-affiliations">
+        {t.hero.affiliations.map((a) => (
+          <li class="hero-affiliation">
+            <span class="hero-role">{a.role}</span>
+            <span class="hero-affiliation-sep" aria-hidden="true">·</span>
+            {a.orgUrl ? (
+              <a href={a.orgUrl} class="hero-org" target="_blank" rel="noopener noreferrer">{a.org}</a>
+            ) : (
+              <span class="hero-org">{a.org}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+      <p class="hero-bio">{t.hero.bio}</p>
+      <div class="hero-contact">
+        <a href={`mailto:${t.footer.emailWork}`} class="hero-email">
+          <IconMail />
+          <span class="hero-email-label">{t.footer.emailWorkLabel}</span>
+          <span class="hero-email-addr">{t.footer.emailWork}</span>
+        </a>
+        <a href={`mailto:${t.footer.emailUniv}`} class="hero-email">
+          <IconMail />
+          <span class="hero-email-label">{t.footer.emailUnivLabel}</span>
+          <span class="hero-email-addr">{t.footer.emailUniv}</span>
+        </a>
+        <a href={`mailto:${t.footer.emailPersonal}`} class="hero-email">
+          <IconMail />
+          <span class="hero-email-label">{t.footer.emailPersonalLabel}</span>
+          <span class="hero-email-addr">{t.footer.emailPersonal}</span>
+        </a>
+      </div>
+      <ul class="hero-socials" aria-label="Profiles">
+        <li>
+          <a href={t.footer.scholar} aria-label="Google Scholar" title="Google Scholar" class="hero-social-link" target="_blank" rel="noopener noreferrer">
+            <IconScholar />
+          </a>
+        </li>
+        <li>
+          <a href={t.footer.twitter} aria-label="X (Twitter)" title="X (Twitter)" class="hero-social-link" target="_blank" rel="noopener noreferrer">
+            <IconX />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: calc(var(--header-height) + 48px);
+    padding-bottom: 24px;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .hero-photo img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--color-surface-elev);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--color-shadow);
+  }
+  .hero-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 2px;
+    line-height: 1.2;
+  }
+  .hero-nickname {
+    color: var(--color-accent);
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.01em;
+  }
+  .hero-name-sub {
+    margin: 0 0 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+  }
+  .hero-affiliations {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 18px;
+    display: grid;
+    gap: 4px;
+  }
+  .hero-affiliation {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .hero-role {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  .hero-affiliation-sep {
+    margin: 0 8px;
+    color: var(--color-border-strong);
+  }
+  .hero-org {
+    color: var(--color-text-muted);
+  }
+  a.hero-org {
+    text-decoration: none;
+    border-bottom: 1px dashed transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  a.hero-org:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+    text-decoration: none;
+  }
+  .hero-bio {
+    margin: 0 0 18px;
+    color: var(--color-text);
+    max-width: 60ch;
+    white-space: pre-line;
+  }
+  .hero-contact {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .hero-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    width: fit-content;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .hero-email:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .hero-email :global(svg) {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+  .hero-email-label {
+    display: inline-block;
+    min-width: 66px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+  }
+  .hero-email-addr {
+    color: inherit;
+  }
+  .hero-socials {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hero-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  }
+  .hero-social-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-bg);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+  .hero-social-link :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+  @media (max-width: 720px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      text-align: center;
+    }
+    .hero-photo {
+      justify-self: center;
+    }
+    .hero-name {
+      font-size: 1.8rem;
+    }
+    .hero-bio {
+      text-align: left;
+    }
+    .hero-contact {
+      justify-items: center;
+    }
+    .hero-socials {
+      justify-content: center;
+    }
+  }
+</style>

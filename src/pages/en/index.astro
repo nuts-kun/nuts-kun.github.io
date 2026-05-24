@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import ResearchInterests from "../../components/ResearchInterests.astro";
+import Publications from "../../components/Publications.astro";
+import Education from "../../components/Education.astro";
+import Experience from "../../components/Experience.astro";
+import Awards from "../../components/Awards.astro";
+import Footer from "../../components/Footer.astro";
+import { getContent } from "../../i18n";
+
+const lang = "en" as const;
+const t = getContent(lang);
+---
+
+<BaseLayout lang={lang} title={t.meta.title} description={t.meta.description}>
+  <Header lang={lang} t={t} />
+  <main>
+    <Hero lang={lang} t={t} />
+    <Education t={t} />
+    <ResearchInterests t={t} />
+    <Publications t={t} />
+    <Experience t={t} />
+    <Awards t={t} />
+  </main>
+  <Footer t={t} />
+</BaseLayout>

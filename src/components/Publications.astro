@@ -1,0 +1,150 @@
+---
+import type { Content, PublicationItem, PublicationCategory } from "../i18n/types";
+
+interface Props {
+  t: Content;
+}
+const { t } = Astro.props;
+
+const categoryOrder: PublicationCategory[] = ["journal", "international", "domestic"];
+
+const grouped = categoryOrder
+  .map((cat) => ({
+    cat,
+    label: t.publications.categoryLabels[cat],
+    items: t.publications.items
+      .filter((p) => p.category === cat)
+      .sort((a, b) => (b.year ?? 0) - (a.year ?? 0)),
+  }))
+  .filter((g) => g.items.length > 0);
+
+function splitAuthors(s: string) {
+  return s.split(/(\*\*[^*]+\*\*)/).map((part) => {
+    const m = part.match(/^\*\*([^*]+)\*\*$/);
+    return m ? { me: true as const, text: m[1] } : { me: false as const, text: part };
+  });
+}
+---
+
+<section id="publications">
+  <div class="container">
+    <h2 class="section-heading">{t.publications.heading}</h2>
+
+    {grouped.map(({ cat, label, items }) => (
+      <div class="pub-cat-group">
+        <h3 class="pub-cat-label">{label}</h3>
+        <ol class="pub-list">
+          {items.map((p) => (
+            <li class="pub-item">
+              <div class="pub-title">{p.title}</div>
+              <div class="pub-authors">
+                {splitAuthors(p.authors).map((seg) =>
+                  seg.me ? <u class="pub-me">{seg.text}</u> : seg.text
+                )}
+              </div>
+              <div class="pub-venue">
+                <em>{p.venue}.</em>
+                {p.note && <span class="pub-note">{p.note}</span>}
+                {p.links && p.links.length > 0 && (
+                  <span class="pub-links">
+                    {p.links.map((l) => (
+                      <a href={l.href} class="pub-link" target="_blank" rel="noopener noreferrer">{l.label}</a>
+                    ))}
+                  </span>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .pub-cat-group { margin-bottom: 24px; }
+  .pub-cat-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 10px;
+  }
+  .pub-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .pub-item {
+    padding: 12px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    transition: border-color 0.15s ease;
+  }
+  .pub-item:hover {
+    border-color: var(--color-border-strong);
+  }
+  .pub-title {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 1px;
+    line-height: 1.4;
+    font-size: 0.95rem;
+  }
+  .pub-authors {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    margin-bottom: 1px;
+  }
+  .pub-me {
+    color: var(--color-text);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  .pub-venue {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .pub-note {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+    color: var(--color-accent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+    font-style: normal;
+    line-height: 1.6;
+  }
+  .pub-links {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-left: 2px;
+  }
+  .pub-link {
+    font-size: 0.72rem;
+    padding: 0 7px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-accent);
+    background: transparent;
+    line-height: 1.6;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .pub-link:hover {
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    border-color: var(--color-accent);
+    text-decoration: none;
+  }
+</style>

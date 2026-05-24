@@ -1,0 +1,97 @@
+---
+import type { Content, DatedItem } from "../i18n/types";
+interface Props {
+  t: Content;
+}
+const { t } = Astro.props;
+
+const groups: { label: string; items: DatedItem[] }[] = [
+  { label: t.awards.awardsLabel, items: t.awards.awards },
+  { label: t.awards.scholarshipsLabel, items: t.awards.scholarships },
+];
+---
+
+<section id="awards">
+  <div class="container">
+    <h2 class="section-heading">{t.awards.heading}</h2>
+    {groups.map((g) => (
+      g.items.length > 0 && (
+        <div class="awards-group">
+          <h3 class="awards-group-label">{g.label}</h3>
+          <ul class="awards-list">
+            {g.items.map((it) => (
+              <li class="awards-item">
+                <span class="awards-date">{it.date}</span>
+                <span class="awards-body">
+                  <span class="awards-title">
+                    {it.href ? (
+                      <a href={it.href} target="_blank" rel="noopener noreferrer">{it.title}</a>
+                    ) : it.title}
+                  </span>
+                  {it.detail && <span class="awards-detail muted"> — {it.detail}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    ))}
+  </div>
+</section>
+
+<style>
+  .awards-group { margin-bottom: 22px; }
+  .awards-group-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 10px;
+  }
+  .awards-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .awards-item {
+    display: grid;
+    grid-template-columns: 175px 1fr;
+    gap: 14px;
+    padding: 8px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .awards-date {
+    color: var(--color-text-subtle);
+    font-size: 0.86rem;
+    font-variant-numeric: tabular-nums;
+    padding-top: 1px;
+  }
+  .awards-title {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+  .awards-title a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dashed transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .awards-title a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+  .awards-detail {
+    font-size: 0.88rem;
+  }
+  @media (max-width: 640px) {
+    .awards-item {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>
