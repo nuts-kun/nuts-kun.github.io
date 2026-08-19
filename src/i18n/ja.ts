@@ -89,6 +89,13 @@ export const ja: Content = {
       },
       {
         category: "domestic",
+        year: 2026,
+        authors: "齋藤佑樹, Wen-Chin Huang, 榎本悠久, **今井柊平**",
+        title: "Human Fooling Rateテストに基づく最先端の日本語テキスト音声合成モデルの評価および分析",
+        venue: "情報処理学会研究報告, 2026-SLP-160, 5 pages, 2026年6月",
+      },
+      {
+        category: "domestic",
         year: 2025,
         authors: "**今井柊平**, 榎本悠久, 金子剛士, 中村泰貴",
         title: "系列整合性評価に特化した高難度日本語テキスト音声合成コーパスの検討",
