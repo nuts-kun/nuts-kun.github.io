@@ -90,6 +90,13 @@ export const ja: Content = {
       {
         category: "domestic",
         year: 2026,
+        authors: "Wen-Chin Huang, **今井柊平**, 榎本悠久, 栗原清, 齋藤佑樹",
+        title: "J-HARD-TTS-EVAL-v2：高難度日本語音声合成コーパスの構築と大規模システム評価",
+        venue: "電子情報通信学会技術研究報告（音声・自然言語処理シンポジウム）, 6 pages, 2026年11月",
+      },
+      {
+        category: "domestic",
+        year: 2026,
         authors: "齋藤佑樹, Wen-Chin Huang, 榎本悠久, **今井柊平**",
         title: "Human Fooling Rateテストに基づく最先端の日本語テキスト音声合成モデルの評価および分析",
         venue: "情報処理学会研究報告, 2026-SLP-160, 5 pages, 2026年6月",
